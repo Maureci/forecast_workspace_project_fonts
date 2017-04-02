@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Forecast Cities</title>
+</head>
+<body>
+	<body>
+    <h1>Adiciona Cidades</h1>
+    <hr />
+    <form action="adicionaCidade">
+      Nome: <input type="text" name="nome" /><br />
+      UF: <input type="text" name="uf" /><br />
+      País: <input type="text" name="pais" /><br />
+      
+      <input type="submit" value="Gravar" />
+    </form>
+  </body>
+</body>
+</html>

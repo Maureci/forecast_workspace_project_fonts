@@ -1,0 +1,10 @@
+package br.com.forecast.jdbc.modelo;
+
+public class Cidade {
+
+   private Long id;
+   private String nome;
+   private String uf;
+   private String pais;
+	
+}

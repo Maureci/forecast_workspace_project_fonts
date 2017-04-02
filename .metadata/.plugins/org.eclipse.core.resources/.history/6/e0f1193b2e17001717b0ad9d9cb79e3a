@@ -1,0 +1,11 @@
+package br.com.forecast.jdbc.teste;
+
+public class TestaListaCidades {
+
+	public static void main(String[] args) {
+		
+				
+
+	}
+
+}

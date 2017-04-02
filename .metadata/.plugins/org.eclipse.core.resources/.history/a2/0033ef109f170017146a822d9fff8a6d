@@ -1,0 +1,23 @@
+<%@ page import="java.util.*,
+		br.com.forecast.jdbc.dao.CidadeDao,
+		br.com.forecast.jdbc.modelo.Cidade" %>
+<html>
+  <body>
+    <table>
+      <%
+      CidadeDao dao = new CidadeDao();
+      List<Cidade> cidades = dao.getLista();
+      
+      for (Cidade cidade : cidades ) {
+      %>
+        <tr>
+          <td><%=cidade.getNome() %></td> 
+          <td><%=cidade.getEmail() %></td>
+          <td><%=cidade.getEndereco() %></td>
+        </tr>
+      <%
+      }
+      %>
+    </table>
+  </body>
+</html>

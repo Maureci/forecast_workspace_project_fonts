@@ -1,0 +1,6 @@
+package br.com.forecast.jdbc.teste;
+
+public class TestaConexao {
+	
+	
+}

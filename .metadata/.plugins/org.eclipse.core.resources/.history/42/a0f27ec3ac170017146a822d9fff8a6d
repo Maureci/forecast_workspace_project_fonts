@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<%@ page import="java.util.*,
+		br.com.forecast.jdbc.dao.CidadeDao,
+		br.com.forecast.jdbc.modelo.Cidade" %>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Forecast</title>
+</head>
+<%
+List<Cidade> cidades = session.getAttribute("cidade");
+%>
+
+	<body>
+    <h1>Adiciona Cidades</h1>
+    <hr />
+    <form action="adicionaCidade" method="POST">
+      Nome: <input type="text" name="nome" /><br />
+      UF: <input type="text" name="uf" /><br />
+      País: <input type="text" name="pais" /><br />
+      
+      <input type="submit" value="Gravar" />
+    </form>
+    <table>
+      <tr>
+		<td>Cidade</td>
+		<td>Estado</td>
+		<td>País</td>
+	  </tr><tr></tr>
+      <%
+      for (Cidade cidade : cidades ) {
+      %>
+        <tr>
+          <td><%=cidade.getNome() %></td> 
+          <td><%=cidade.getUf() %></td>
+          <td><%=cidade.getPais() %></td>
+          <td><a href="previsao.html?cidade=<%=cidade.getNome()%>">Tempo</a></td>
+        </tr>
+      <%
+      }
+      %>
+    </table>
+  
+</body>
+</html>

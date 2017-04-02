@@ -1,0 +1,75 @@
+<html>
+<head>
+<style>
+body {
+	background: #F9F9FA;
+}
+</style>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+	$(document)
+			.ready(
+					function() {
+						$('#get-data')
+								.click(
+										function() {
+											var showData = $('#show-data');
+											var cidade = getUrlParameter('cidade');
+											$.ajax({
+													type : 'GET',
+													url : 'http://localhost:8080/gerenciador/tempo',
+													data : 'cidade=' + cidade,
+													async : false,
+													beforeSend : function(xhr) {
+														if (xhr && xhr.overrideMimeType) {
+															xhr.overrideMimeType('application/json;charset=utf-8');
+														}
+													},
+													dataType : 'json',
+													success : function(data) {
+														console.log(data);													
+
+														showData.empty();
+															
+// 															$(data.list).each(function(i, item) {
+// 														     var content = '<li>Tempo : ' + data.list[i].weather[0].description + '</li>';
+// 															 var list = $('<ul/>').html(content);
+// 															 showData.append(list);
+// 															});
+
+													  var content = 'Cidade: ' + cidade + '<li>Tempo : ' + data.list[0].weather[0].description + '</li>' +
+													  '<li>grnd_level : ' +data.list[0].main.grnd_level+ '</li>' +
+													  '<li>humidity : ' +data.list[0].main.humidity+ '</li>' +
+													  '<li>pressure : ' +data.list[0].main.pressure+ '</li>' +
+													  '<li>sea_level : ' +data.list[0].main.sea_level+ '</li>' +
+													  '<li>temp : ' +data.list[0].main.temp+ '</li>' +
+													  '<li>temp_max : ' +data.list[0].main.temp_max+ '</li>' +
+													  '<li>temp_min : ' +data.list[0].main.temp_min+ '</li>';
+													  var list = $('<ul/>').html(content);
+													  showData.append(list);
+														}
+													});
+										});
+					});
+</script>
+</head>
+
+<body>
+	<a href="#" id="get-data">Previsão do tempo</a>
+	<div id="show-data"></div>
+</body>
+</html>

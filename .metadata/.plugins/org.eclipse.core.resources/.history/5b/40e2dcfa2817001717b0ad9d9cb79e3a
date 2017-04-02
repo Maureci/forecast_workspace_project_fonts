@@ -1,0 +1,16 @@
+package br.com.forecast.jdbc.dao;
+
+import java.sql.Connection;
+
+import br.com.forecast.jdbc.ConnectionFactory;
+
+public class CidadeDao {
+	
+   // a conexão com o banco de dados
+   private Connection connection;
+ 
+   public CidadeDao() throws ClassNotFoundException {
+     this.connection = new ConnectionFactory().getConnection();
+   }
+
+}

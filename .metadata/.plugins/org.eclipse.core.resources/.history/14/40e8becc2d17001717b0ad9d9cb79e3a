@@ -1,0 +1,83 @@
+package br.com.forecast.jdbc.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.forecast.jdbc.ConnectionFactory;
+import br.com.forecast.jdbc.modelo.Cidade;
+
+public class CidadeDao {
+	
+   // a conexão com o banco de dados
+   private Connection connection;
+ 
+   public CidadeDao() throws ClassNotFoundException {
+	   
+     this.connection = new ConnectionFactory().getConnection();
+     
+   }
+   
+   public void adiciona(Cidade cidade) {
+     String sql = "insert into cidade " +
+             "(nome,uf,pais)" +
+             " values (?,?,?)";
+ 
+     try {
+         // prepared statement para inserção
+         PreparedStatement stmt = connection.prepareStatement(sql);
+ 
+         // seta os valores
+         stmt.setString(1,cidade.getNome());
+         stmt.setString(2,cidade.getUf());
+         stmt.setString(3,cidade.getPais());
+ 
+         // executa
+         stmt.execute();
+         stmt.close();
+     } catch (SQLException e) {
+         throw new RuntimeException(e);
+     }
+   }
+   
+   public List<Cidade> getLista() {
+     try {
+    	 
+         List<Cidade> cidade = new ArrayList<Cidade>();
+         PreparedStatement stmt = this.connection.prepareStatement("select * from cidade");
+         ResultSet rs = stmt.executeQuery();
+ 
+         while (rs.next()) {
+        	 
+             // criando o objeto Cidade
+             Contato contato = new Contato();
+             contato.setId(rs.getLong("id"));
+             contato.setNome(rs.getString("nome"));
+             contato.setEmail(rs.getString("email"));
+             contato.setEndereco(rs.getString("endereco"));
+ 
+             // montando a data através do Calendar
+             Calendar data = Calendar.getInstance();
+             data.setTime(rs.getDate("dataNascimento"));
+             contato.setDataNascimento(data);
+ 
+             // adicionando o objeto à lista
+             contatos.add(contato);
+             
+         }
+         
+         rs.close();
+         stmt.close();
+         return contatos;
+         
+     } catch (SQLException e) {
+    	 
+         throw new RuntimeException(e);
+         
+     }
+	}
+
+}

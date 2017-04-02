@@ -1,0 +1,46 @@
+package br.com.forecast.cidade.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.com.forecast.jdbc.dao.CidadeDao;
+import br.com.forecast.jdbc.modelo.Cidade;
+
+@WebServlet("/adicionaCidade")
+public class AdicionaCidadeServlet extends HttpServlet {
+    protected void service(HttpServletRequest request,
+                        HttpServletResponse response)
+                        throws IOException, ServletException {
+        // busca o writer
+        PrintWriter out = response.getWriter();
+                        
+        // buscando os parâmetros no request
+        String nome = request.getParameter("nome");
+        String uf = request.getParameter("uf");
+        String pais = request.getParameter("pais");        
+        
+        // monta um objeto contato
+        Cidade cidade = new Cidade();
+        cidade.setNome(nome);
+        cidade.setUf(uf);
+        cidade.setPais(pais);
+        
+        // salva o contato
+        CidadeDao dao = new CidadeDao();
+        dao.adiciona(cidade);
+        
+        // imprime o nome do contato que foi adicionado
+        out.println("<html>");
+        out.println("<body>");
+        out.println("Cidade " + cidade.getNome() +
+                " adicionado com sucesso");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
