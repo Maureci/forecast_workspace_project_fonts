@@ -1,5 +1,0 @@
-package br.com.forecast.jdbc.modelo;
-
-public class Cidade {
-
-}
